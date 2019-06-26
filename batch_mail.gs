@@ -1,6 +1,8 @@
 function getCsv() {
   // imports the csv file from Google Drive...
-  var file = DriveApp.getFilesByName("data.csv").next();
+  // feel free to change the csv filename
+  var csv = "data.csv";
+  var file = DriveApp.getFilesByName(csv).next();
   var csvData = Utilities.parseCsv(file.getBlob().getDataAsString(), ';');
   var sheet = SpreadsheetApp.getActiveSheet();
   sheet.getRange(1, 1, csvData.length, csvData[0].length).setValues(csvData);
@@ -8,7 +10,8 @@ function getCsv() {
 }
   
 
-// majorly converts the vat_rate into a good number to work with
+//column vat_rate has numbers in the format '0,21', '0,32'
+// majorly converts the vat_rate into a good number to work with such as '21', '32'
 // also calls getCsv
 function convertVatRate() {
   getCsv();
